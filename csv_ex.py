@@ -35,4 +35,4 @@ class Item:
                 quantity=int(item.get('quantity'))
             )
 Item.instance_from_csv()
-print(Item)
+print(Item.all)
