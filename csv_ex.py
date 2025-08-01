@@ -1,5 +1,4 @@
 import csv
-
 class Item:
     all=[]
     pay_rate=0.8
@@ -18,9 +17,8 @@ class Item:
     def apply_discount(self):
         self.price=self.price*self.pay_rate
         
-    # it prints items isted of their instances or location
-    def __repr__(self):
-        return f"item('{self.name}','{self.price},'{self.quantity}')"
+    
+    
     
     @classmethod
     def instance_from_csv(cls):
@@ -28,11 +26,26 @@ class Item:
             reader=csv.DictReader(f)
             items=list(reader)
         
+    
         for item in items:
             Item(
                 name=item.get('name'),
                 price=float(item.get('price')),
                 quantity=int(item.get('quantity'))
             )
-Item.instance_from_csv()
-print(Item.all)
+
+    @staticmethod
+    def is_integer(num):
+            # We will count out the floats that are point zero
+        # For i.e: 5.0, 10.0
+        if isinstance(num, float):
+            # Count out the floats that are point zero
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+# it prints items insted of their instances or location
+    def __repr__(self):
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
+print(Item.is_integer(4.6))
