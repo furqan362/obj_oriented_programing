@@ -1,21 +1,45 @@
 import csv
 class Item:
+    
+    
     all=[]
     pay_rate=0.8
     def __init__(self,name:str,price:int,quantity=0):
-        assert price>=0,f"the price {price} must be greater or equal to zero"
-        assert quantity>=0,f"the quantity  {quantity} must be greater or equal to zero"
-        
-        self.name=name
-        self.price=price
+        assert price>=0,f"the price {price} is not greater or equal to zero"
+        assert quantity>=0,f"the quantity  {quantity} is not greater or equal to zero"
+        #  by underscore we dont access it from instance lavel
+        self.__name=name
+        self.__price=price
         self.quantity=quantity
         Item.all.append(self)
-        
-    def calculate_total_price(self):
-        return self.quantity*self.price
+    
+    # property deceroter read only attributes
+    @property
+    def name(self):
+        return self.__name
     
     def apply_discount(self):
         self.price=self.price*self.pay_rate
+    
+    def apply_increment(self, increment_value):
+        self.__price = self.__price + self.__price * increment_value
+
+    @property
+    def price(self):
+        return self.__price
+
+    #  it allows user to change name 
+    @name.setter
+    def name(self,value):
+        if len(value)>10:
+            raise Exception ("your name is too long")
+        else:
+            self.__name=value
+    
+    def calculate_total_price(self):
+        return self.quantity*self.price
+    
+    
         
     
     
@@ -48,4 +72,3 @@ class Item:
 # it prints items insted of their instances or location
     def __repr__(self):
         return f"Item('{self.name}', {self.price}, {self.quantity})"
-print(Item.is_integer(4.6))
